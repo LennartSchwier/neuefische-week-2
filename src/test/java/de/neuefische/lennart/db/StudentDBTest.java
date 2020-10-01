@@ -78,28 +78,40 @@ class StudentDBTest {
         assertEquals(expectedResult, result);
     }
 
-    /*
+
     @Test
     void testRemoveStudent() {
         // GIVEN
         Student student1 = new Student("John Doe", 1);
         Student student2 = new Student("Jane Doe", 2);
         Student student3 = new Student("Jake Doe", 3);
-        Student[] testArray = new Student[] {student1, student2, student3};
+        Student[] testArray = new Student[]{student1, student2, student3};
         StudentDB testData = new StudentDB(testArray);
 
+
         // WHEN
-        String expectedResult = "StudentDB\n" +
-                //"Name: John Doe; ID: 1\n" +
-                "Name: Jane Doe; ID: 2\n" +
-                "Name: Jake Doe; ID: 3\n" +
-                "End of DB.";
         testData.removeStudent(2);
-        String result = testData.toString();
+        Student[] actualArray = testData.list();
 
         // THEN
-        assertEquals(expectedResult, result);
+        assertArrayEquals(new Student[] {student1, student3}, actualArray);
     }
 
-     */
+    @Test
+    void testRemoveLastStudent() {
+        // GIVEN
+        Student student1 = new Student("John Doe", 1);
+        Student student2 = new Student("Jane Doe", 2);
+        Student student3 = new Student("Jake Doe", 3);
+        Student[] testArray = new Student[]{student1, student2, student3};
+        StudentDB testData = new StudentDB(testArray);
+
+
+        // WHEN
+        testData.removeStudent(3);
+        Student[] actualArray = testData.list();
+
+        // THEN
+        assertArrayEquals(new Student[] {student1, student2}, actualArray);
+    }
 }

@@ -39,11 +39,37 @@ public class StudentDB {
     }
 
     public void addStudent(Student newStudent) {
-        Student[] newStudents = new Student[students.length + 1];
+        Student[] updatedStudents = new Student[students.length + 1];
         for (int i = 0; i < students.length; i++) {
-            newStudents[i] = students[i];
+            updatedStudents[i] = students[i];
         }
-        newStudents[students.length] = newStudent;
-        students = newStudents;
+        updatedStudents[students.length] = newStudent;
+        students = updatedStudents;
+    }
+
+    public void removeStudent(int id) {
+        if (!containsId(id)){
+            return;
+        }
+        boolean removed = false;
+        Student[] updatedStudents = new Student[students.length - 1];
+        for (int i = 0; i < updatedStudents.length; i++) {
+            Student student = students[i];
+            if (student.getId() == id) {
+                removed = true;
+            }
+            int readIndex = removed ? i+1 : i;
+            updatedStudents[i] = students[readIndex];
+        }
+        students = updatedStudents;
+    }
+
+    private boolean containsId(int id) {
+        for (Student student : students) {
+            if (student.getId() == id) {
+                return true;
+            }
+        }
+        return false;
     }
 }
